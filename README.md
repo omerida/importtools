@@ -48,4 +48,28 @@ echo $xml->saveXML();
 ~~~~
 
 If your data structure is very complicated, or you need to output it in a specific way, you can
-set a
+set your own handler for it
+
+~~~~
+// output XML
+$xml = new toXml("profiles", "profile");
+$xml->setHandler("tags", "tagHandler");
+~~~~
+
+Your handler needs to return the XML node to insert into the overall XML document created with the DOM extension.
+
+~~~~
+function tagHandler($name, $attribute, $dom) {
+
+    // create our root tag
+    $tags = $dom->createElement('roles');
+
+    foreach ($attribute as $row) {
+        $tag = $dom->createElement('role');
+        $tag->appendChild($dom->createTextNode($row));
+        $tags->appendChild($tag);
+    }
+
+    return $tags;
+}
+~~~~
