@@ -10,7 +10,7 @@ the classes take care of reading, writing each format.
 The **readCsv** class reads in a CSV file and transforms it into an array. Heading row
 names are turned into field names. Empty lines are skipped, empty fields are ignored.
 
-~~~~
+~~~~php
 use oam\importtools\readCsv;
 
 // read in our Sample CSV file
@@ -22,7 +22,7 @@ $items = $csv->getArray();
 
 Alternatively, you can pass getArray a function to parse and cleanup incoming data.
 
-~~~~
+~~~~php
 $items = $csv->getArray(function($item) {
     // skip items without an email field
     if (empty($item->email)) {
@@ -39,7 +39,7 @@ $items = $csv->getArray(function($item) {
 
 The **toXml** class takes an array of associate arrays or classes and output it as an XML file.
 
-~~~~
+~~~~php
 // output XML
 // specifcy our root and per-item tags
 $xml = new toXml("profiles", "profile");
@@ -50,7 +50,7 @@ echo $xml->saveXML();
 If your data structure is very complicated, or you need to output it in a specific way, you can
 set your own handler for it
 
-~~~~
+~~~~php
 // output XML
 $xml = new toXml("profiles", "profile");
 $xml->setHandler("tags", "tagHandler");
@@ -58,7 +58,7 @@ $xml->setHandler("tags", "tagHandler");
 
 Your handler needs to return the XML node to insert into the overall XML document created with the DOM extension.
 
-~~~~
+~~~~php
 function tagHandler($name, $attribute, $dom) {
 
     // create our root tag
